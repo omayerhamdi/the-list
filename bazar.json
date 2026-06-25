@@ -1,0 +1,100 @@
+{
+  "categories": [
+    { "id": "cat_01", "name": "চাল, ডাল ও আটা", "eyebrow": "মূল খাদ্য", "order": 1 },
+    { "id": "cat_02", "name": "ভোজ্যতেল ও ঘি", "eyebrow": "রান্নার মাধ্যম", "order": 2 },
+    { "id": "cat_03", "name": "মসলাপাতি (গুঁড়া ও আস্ত)", "eyebrow": "স্বাদ ও সুঘ্রাণ", "order": 3 },
+    { "id": "cat_04", "name": "কাঁচাবাজার ও সবজি", "eyebrow": "তাজা খাবার", "order": 4 },
+    { "id": "cat_05", "name": "মাছ, মাংস ও ডিম", "eyebrow": "আমিষ", "order": 5 },
+    { "id": "cat_06", "name": "মুদি ও শুকনা খাবার", "eyebrow": "প্যান্ট্রি আইটেম", "order": 6 },
+    { "id": "cat_07", "name": "চা, দুধ ও পানীয়", "eyebrow": "সকাল-বিকেল", "order": 7 },
+    { "id": "cat_08", "name": "পরিষ্কার-পরিচ্ছন্নতা", "eyebrow": "লন্ড্রি ও কিচেন", "order": 8 },
+    { "id": "cat_09", "name": "প্রসাধন ও ব্যক্তিগত যত্ন", "eyebrow": "টয়লেট্রিজ", "order": 9 },
+    { "id": "cat_10", "name": "শিশুর যত্ন ও খাবার", "eyebrow": "বাচ্চাদের জন্য", "order": 10 },
+    { "id": "cat_11", "name": "ফার্মেসি ও প্রাথমিক চিকিৎসা", "eyebrow": "জরুরি প্রয়োজন", "order": 11 }
+  ],
+
+  "items": [
+    // --- চাল, ডাল ও আটা ---
+    { "id": "itm_001", "category_id": "cat_01", "name": "মিনিকেট চাল", "unit": "কেজি", "default_qty": 25, "step": 5, "min": 1, "is_frequent": true },
+    { "id": "itm_002", "category_id": "cat_01", "name": "নাজিরশাইল চাল", "unit": "কেজি", "default_qty": 5, "step": 1, "min": 1, "is_frequent": false },
+    { "id": "itm_003", "category_id": "cat_01", "name": "পোলাওয়ের চাল (চিনিগুঁড়া)", "unit": "কেজি", "default_qty": 2, "step": 0.5, "min": 0.5, "is_frequent": false },
+    { "id": "itm_004", "category_id": "cat_01", "name": "মসুর ডাল (চিকন)", "unit": "কেজি", "default_qty": 2, "step": 0.5, "min": 0.5, "is_frequent": true },
+    { "id": "itm_005", "category_id": "cat_01", "name": "মুগ ডাল", "unit": "কেজি", "default_qty": 1, "step": 0.5, "min": 0.5, "is_frequent": false },
+    { "id": "itm_006", "category_id": "cat_01", "name": "আটা (প্যাকেট)", "unit": "কেজি", "default_qty": 5, "step": 1, "min": 1, "is_frequent": true },
+    { "id": "itm_007", "category_id": "cat_01", "name": "ময়দা (প্যাকেট)", "unit": "কেজি", "default_qty": 2, "step": 1, "min": 1, "is_frequent": false },
+    { "id": "itm_008", "category_id": "cat_01", "name": "ছোলা বুট", "unit": "কেজি", "default_qty": 1, "step": 0.5, "min": 0.5, "is_frequent": false },
+
+    // --- ভোজ্যতেল ও ঘি ---
+    { "id": "itm_009", "category_id": "cat_02", "name": "সয়াবিন তেল (বোতল)", "unit": "লিটার", "default_qty": 5, "step": 1, "min": 1, "is_frequent": true },
+    { "id": "itm_010", "category_id": "cat_02", "name": "সরিষার তেল (ঘানি ভাঙা)", "unit": "লিটার", "default_qty": 1, "step": 0.5, "min": 0.5, "is_frequent": true },
+    { "id": "itm_011", "category_id": "cat_02", "name": "ঘি", "unit": "গ্রাম", "default_qty": 250, "step": 50, "min": 50, "is_frequent": false },
+
+    // --- মসলাপাতি ---
+    { "id": "itm_012", "category_id": "cat_03", "name": "দেশি পেঁয়াজ", "unit": "কেজি", "default_qty": 5, "step": 1, "min": 1, "is_frequent": true },
+    { "id": "itm_013", "category_id": "cat_03", "name": "রসুন", "unit": "কেজি", "default_qty": 1, "step": 0.5, "min": 0.5, "is_frequent": true },
+    { "id": "itm_014", "category_id": "cat_03", "name": "আদা", "unit": "কেজি", "default_qty": 1, "step": 0.25, "min": 0.25, "is_frequent": true },
+    { "id": "itm_015", "category_id": "cat_03", "name": "শুকনা মরিচ", "unit": "গ্রাম", "default_qty": 250, "step": 50, "min": 50, "is_frequent": false },
+    { "id": "itm_016", "category_id": "cat_03", "name": "হলুদ গুঁড়া", "unit": "গ্রাম", "default_qty": 200, "step": 50, "min": 50, "is_frequent": false },
+    { "id": "itm_017", "category_id": "cat_03", "name": "মরিচ গুঁড়া", "unit": "গ্রাম", "default_qty": 200, "step": 50, "min": 50, "is_frequent": false },
+    { "id": "itm_018", "category_id": "cat_03", "name": "জিরা (আস্ত)", "unit": "গ্রাম", "default_qty": 100, "step": 50, "min": 50, "is_frequent": false },
+    { "id": "itm_019", "category_id": "cat_03", "name": "ধনে গুঁড়া", "unit": "গ্রাম", "default_qty": 100, "step": 50, "min": 50, "is_frequent": false },
+    { "id": "itm_020", "category_id": "cat_03", "name": "গরম মসলা (এলাচ, দারুচিনি, লবঙ্গ)", "unit": "প্যাকেট", "default_qty": 1, "step": 1, "min": 1, "is_frequent": false },
+    { "id": "itm_021", "category_id": "cat_03", "name": "লবণ (আয়োডিনযুক্ত)", "unit": "কেজি", "default_qty": 1, "step": 1, "min": 1, "is_frequent": true },
+
+    // --- কাঁচাবাজার ও সবজি ---
+    { "id": "itm_022", "category_id": "cat_04", "name": "আলু", "unit": "কেজি", "default_qty": 5, "step": 1, "min": 1, "is_frequent": true },
+    { "id": "itm_023", "category_id": "cat_04", "name": "কাঁচা মরিচ", "unit": "গ্রাম", "default_qty": 250, "step": 50, "min": 50, "is_frequent": true },
+    { "id": "itm_024", "category_id": "cat_04", "name": "টমেটো", "unit": "কেজি", "default_qty": 1, "step": 0.5, "min": 0.5, "is_frequent": true },
+    { "id": "itm_025", "category_id": "cat_04", "name": "লেবু", "unit": "হালি", "default_qty": 1, "step": 1, "min": 1, "is_frequent": true },
+    { "id": "itm_026", "category_id": "cat_04", "name": "ধনে পাতা", "unit": "আঁটি", "default_qty": 2, "step": 1, "min": 1, "is_frequent": true },
+    { "id": "itm_027", "category_id": "cat_04", "name": "বেগুন", "unit": "কেজি", "default_qty": 1, "step": 0.5, "min": 0.5, "is_frequent": false },
+    { "id": "itm_028", "category_id": "cat_04", "name": "শসা", "unit": "কেজি", "default_qty": 1, "step": 0.5, "min": 0.5, "is_frequent": true },
+
+    // --- মাছ, মাংস ও ডিম ---
+    { "id": "itm_029", "category_id": "cat_05", "name": "ব্রয়লার মুরগি", "unit": "কেজি", "default_qty": 2, "step": 0.5, "min": 1, "is_frequent": true },
+    { "id": "itm_030", "category_id": "cat_05", "name": "সোনালী/দেশি মুরগি", "unit": "পিস", "default_qty": 2, "step": 1, "min": 1, "is_frequent": false },
+    { "id": "itm_031", "category_id": "cat_05", "name": "গরুর মাংস", "unit": "কেজি", "default_qty": 2, "step": 0.5, "min": 1, "is_frequent": false },
+    { "id": "itm_032", "category_id": "cat_05", "name": "রুই মাছ", "unit": "কেজি", "default_qty": 2, "step": 0.5, "min": 1, "is_frequent": true },
+    { "id": "itm_033", "category_id": "cat_05", "name": "ফার্মের ডিম", "unit": "ডজন", "default_qty": 2, "step": 0.5, "min": 0.5, "is_frequent": true },
+
+    // --- মুদি ও শুকনা খাবার ---
+    { "id": "itm_034", "category_id": "cat_06", "name": "চিনি (সাদা/লাল)", "unit": "কেজি", "default_qty": 2, "step": 1, "min": 0.5, "is_frequent": true },
+    { "id": "itm_035", "category_id": "cat_06", "name": "নুডলস (স্টিক/কোকোলা)", "unit": "প্যাকেট", "default_qty": 1, "step": 1, "min": 1, "is_frequent": false },
+    { "id": "itm_036", "category_id": "cat_06", "name": "ম্যাগি/ইন্সট্যান্ট নুডলস", "unit": "প্যাকেট (৮ পিস)", "default_qty": 1, "step": 1, "min": 1, "is_frequent": true },
+    { "id": "itm_037", "category_id": "cat_06", "name": "মুড়ি", "unit": "কেজি", "default_qty": 1, "step": 0.25, "min": 0.25, "is_frequent": true },
+    { "id": "itm_038", "category_id": "cat_06", "name": "টোস্ট/লোকাল বিস্কুট", "unit": "প্যাকেট", "default_qty": 2, "step": 1, "min": 1, "is_frequent": true },
+    { "id": "itm_039", "category_id": "cat_06", "name": "চানাচুর", "unit": "প্যাকেট", "default_qty": 1, "step": 1, "min": 1, "is_frequent": false },
+
+    // --- চা, দুধ ও পানীয় ---
+    { "id": "itm_040", "category_id": "cat_07", "name": "চা পাতা (ইস্পাহানি/সিলন)", "unit": "গ্রাম", "default_qty": 400, "step": 100, "min": 100, "is_frequent": true },
+    { "id": "itm_041", "category_id": "cat_07", "name": "গুঁড়া দুধ (ডিপ্লোমা/মার্কস)", "unit": "কেজি", "default_qty": 1, "step": 0.5, "min": 0.5, "is_frequent": true },
+    { "id": "itm_042", "category_id": "cat_07", "name": "তরল দুধ (প্যাকেট)", "unit": "লিটার", "default_qty": 1, "step": 1, "min": 1, "is_frequent": false },
+    { "id": "itm_043", "category_id": "cat_07", "name": "ট্যাং / গ্লুকোজ", "unit": "জার", "default_qty": 1, "step": 1, "min": 1, "is_frequent": false },
+
+    // --- পরিষ্কার-পরিচ্ছন্নতা ---
+    { "id": "itm_044", "category_id": "cat_08", "name": "ডিটারজেন্ট পাউডার (সার্ফ এক্সেল/হুইল)", "unit": "কেজি", "default_qty": 1, "step": 0.5, "min": 0.5, "is_frequent": true },
+    { "id": "itm_045", "category_id": "cat_08", "name": "কাপড় কাচার সাবান", "unit": "পিস", "default_qty": 4, "step": 1, "min": 1, "is_frequent": true },
+    { "id": "itm_046", "category_id": "cat_08", "name": "ডিশওয়াশ বার/লিকুইড (ভিম)", "unit": "পিস", "default_qty": 2, "step": 1, "min": 1, "is_frequent": true },
+    { "id": "itm_047", "category_id": "cat_08", "name": "টয়লেট ক্লিনার (হারপিক)", "unit": "বোতল", "default_qty": 1, "step": 1, "min": 1, "is_frequent": true },
+    { "id": "itm_048", "category_id": "cat_08", "name": "ফ্লোর ক্লিনার/স্যাভলন লিকুইড", "unit": "বোতল", "default_qty": 1, "step": 1, "min": 1, "is_frequent": false },
+    { "id": "itm_049", "category_id": "cat_08", "name": "টয়লেট টিস্যু", "unit": "রোল", "default_qty": 4, "step": 1, "min": 1, "is_frequent": true },
+
+    // --- প্রসাধন ও ব্যক্তিগত যত্ন ---
+    { "id": "itm_050", "category_id": "cat_09", "name": "গায়ে মাখার সাবান (লাক্স/লাইফবয়)", "unit": "পিস", "default_qty": 3, "step": 1, "min": 1, "is_frequent": true },
+    { "id": "itm_051", "category_id": "cat_09", "name": "টুথপেস্ট", "unit": "টিউব", "default_qty": 1, "step": 1, "min": 1, "is_frequent": true },
+    { "id": "itm_052", "category_id": "cat_09", "name": "শ্যাম্পু", "unit": "বোতল", "default_qty": 1, "step": 1, "min": 1, "is_frequent": false },
+    { "id": "itm_053", "category_id": "cat_09", "name": "নারিকেল তেল (প্যারাসুট)", "unit": "বোতল", "default_qty": 1, "step": 1, "min": 1, "is_frequent": false },
+
+    // --- শিশুর যত্ন ও খাবার ---
+    { "id": "itm_054", "category_id": "cat_10", "name": "ডায়াপার (প্যাম্পার্স/হাগিস)", "unit": "প্যাকেট", "default_qty": 1, "step": 1, "min": 1, "is_frequent": true },
+    { "id": "itm_055", "category_id": "cat_10", "name": "বেবি ফর্মুলা / দুধ", "unit": "কৌটা", "default_qty": 1, "step": 1, "min": 1, "is_frequent": true },
+    { "id": "itm_056", "category_id": "cat_10", "name": "বাচ্চাদের সুজি/সিরিয়াল", "unit": "প্যাকেট", "default_qty": 2, "step": 1, "min": 1, "is_frequent": true },
+    { "id": "itm_057", "category_id": "cat_10", "name": "বেবি সোপ ও লোশন", "unit": "সেট", "default_qty": 1, "step": 1, "min": 1, "is_frequent": false },
+
+    // --- ফার্মেসি ও প্রাথমিক চিকিৎসা ---
+    { "id": "itm_058", "category_id": "cat_11", "name": "প্যারাসিটামল (নাপা/এইচ)", "unit": "পাতা", "default_qty": 2, "step": 1, "min": 1, "is_frequent": true },
+    { "id": "itm_059", "category_id": "cat_11", "name": "গ্যাস্ট্রিকের ওষুধ (সেকলো/সার্জেল)", "unit": "পাতা", "default_qty": 2, "step": 1, "min": 1, "is_frequent": true },
+    { "id": "itm_060", "category_id": "cat_11", "name": "খাবার স্যালাইন (ওরস্যালাইন-এন)", "unit": "পিস", "default_qty": 10, "step": 5, "min": 5, "is_frequent": true },
+    { "id": "itm_061", "category_id": "cat_11", "name": "ব্যান্ডেজ ও তুলা", "unit": "সেট", "default_qty": 1, "step": 1, "min": 1, "is_frequent": false }
+  ]
+}

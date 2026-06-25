@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>বাজার — পরিবারের মাসিক বাজারের তালিকা</title>
+<meta name="theme-color" content="#F4F2EC">
+<style>
+  /* ---------- Local font: SolaimanLipi ---------- */
+  @font-face{
+    font-family:"SolaimanLipi";
+    src:url("SolaimanLipi.ttf") format("truetype");
+    font-weight:400 700;
+    font-display:swap;
+  }
+
+  :root{
+    --bg:#F4F2EC;
+    --surface:#FBFAF6;
+    --card:#FFFFFF;
+    --ink:#1A1915;
+    --ink-soft:#6B675D;
+    --ink-faint:#9A968B;
+    --line:#E6E2D6;
+    --line-strong:#D8D3C4;
+    --clay:#C2603F;
+    --clay-deep:#A94E31;
+    --clay-tint:#F6E7DF;
+    --clay-tint-line:#E9C7B5;
+    --shadow:0 1px 2px rgba(26,25,21,.05);
+    --shadow-lift:0 8px 30px rgba(26,25,21,.12);
+    --r:14px;
+    --r-sm:10px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    font-family:"SolaimanLipi",system-ui,sans-serif;
+    background:var(--bg);
+    color:var(--ink);
+    line-height:1.6;
+    font-size:16px;
+    padding-bottom:calc(168px + env(safe-area-inset-bottom));
+    overflow-x:hidden;
+  }
+  .wrap{max-width:680px;margin:0 auto;padding:0 18px}
+
+  /* ---------- Header ---------- */
+  header{
+    padding:24px 0 14px;
+  }
+  .brandline{display:flex;align-items:center;gap:10px}
+  .brandline::after{content:"";flex:1;height:1px;background:var(--clay-tint-line)}
+  .wordmark{
+    font-family:"SolaimanLipi",serif;
+    font-size:32px;
+    font-weight:700;
+    line-height:1;
+    letter-spacing:.2px;
+    color:var(--ink);
+  }
+  .wordmark .dot{color:var(--clay)}
+  .tagline{
+    margin-top:8px;
+    font-size:14px;
+    color:var(--ink-soft);
+    font-weight:400;
+  }
+  .datechip{
+    font-size:13.5px;
+    color:var(--clay-deep);
+    font-weight:600;
+    white-space:nowrap;
+  }
+
+  /* ---------- Sticky toolbar (search + tabs) ---------- */
+  .toolbar{
+    position:sticky;top:0;z-index:30;
+    background:var(--bg);
+    padding-top:10px;
+    margin-bottom:6px;
+  }
+  .search{
+    display:flex;align-items:center;gap:10px;
+    background:var(--surface);
+    border:1px solid var(--line-strong);
+    border-radius:999px;
+    padding:11px 16px;
+    box-shadow:var(--shadow);
+  }
+  .search:focus-within{border-color:var(--clay);box-shadow:0 0 0 3px var(--clay-tint)}
+  .search svg{flex:none;color:var(--ink-faint)}
+  .search input{
+    border:0;background:none;outline:none;width:100%;
+    font-family:inherit;font-size:16px;color:var(--ink);
+  }
+  .search input::placeholder{color:var(--ink-faint)}
+  .search .clr{
+    border:0;background:none;color:var(--ink-faint);font-size:20px;
+    cursor:pointer;padding:0 2px;display:none;line-height:1;
+  }
+
+  /* ---------- Tab strip ---------- */
+  .tabs{
+    display:flex;gap:8px;overflow-x:auto;
+    padding:12px 18px 12px;
+    margin:0 -18px;
+    scroll-snap-type:x proximity;
+    scrollbar-width:none;
+  }
+  .tabs::-webkit-scrollbar{display:none}
+  .tab{
+    flex:none;
+    border:1px solid var(--line-strong);
+    background:var(--card);
+    border-radius:999px;
+    padding:8px 15px;
+    font-family:inherit;font-size:14.5px;font-weight:500;
+    color:var(--ink-soft);cursor:pointer;white-space:nowrap;
+    display:inline-flex;align-items:center;gap:7px;
+    transition:background .15s,border-color .15s,color .15s,transform .06s;
+    scroll-snap-align:start;
+  }
+  .tab .ic{font-size:15px;line-height:1}
+  .tab:active{transform:scale(.96)}
+  .tab.active{background:var(--clay);border-color:var(--clay);color:#fff}
+  .tab .tcount{
+    background:var(--clay-tint);color:var(--clay-deep);
+    border-radius:999px;font-size:11px;font-weight:700;
+    padding:1px 7px;min-width:19px;text-align:center;line-height:1.5;
+  }
+  .tab.active .tcount{background:rgba(255,255,255,.22);color:#fff}
+
+  /* ---------- Panel ---------- */
+  .panel{margin:14px 0 22px;min-height:50vh}
+  .panel-head{margin-bottom:14px}
+  .eyebrow{
+    font-size:11px;font-weight:700;letter-spacing:1.5px;
+    color:var(--clay);text-transform:uppercase;
+    display:block;margin-bottom:2px;
+  }
+  .panel-title{
+    font-size:23px;font-weight:700;color:var(--ink);line-height:1.25;
+  }
+  .panel-sub{font-size:13.5px;color:var(--ink-soft);margin-top:3px}
+
+  .grid{display:flex;flex-wrap:wrap;gap:9px}
+
+  /* ---------- Item tile ---------- */
+  .tile{
+    border:1px solid var(--line-strong);
+    background:var(--card);
+    border-radius:999px;
+    padding:9px 15px;
+    font-size:15px;font-weight:500;color:var(--ink);
+    cursor:pointer;display:inline-flex;align-items:center;gap:7px;
+    transition:border-color .15s, background .15s, transform .06s;
+    user-select:none;
+  }
+  .tile:hover{border-color:var(--ink-faint)}
+  .tile:active{transform:scale(.97)}
+  .tile .plus{color:var(--clay);font-size:17px;line-height:1;font-weight:700;margin-left:-2px}
+  .tile.on{
+    background:var(--clay-tint);
+    border-color:var(--clay-tint-line);
+    padding:6px 6px 6px 15px;
+  }
+  .tile.on .nm{margin-right:2px}
+  .stepper{
+    display:inline-flex;align-items:center;gap:2px;
+    background:var(--card);
+    border:1px solid var(--clay-tint-line);
+    border-radius:999px;padding:2px;
+  }
+  .stepper button{
+    width:30px;height:30px;border:0;border-radius:50%;
+    background:none;color:var(--clay-deep);
+    font-size:20px;line-height:1;cursor:pointer;
+    display:grid;place-items:center;font-family:inherit;
+  }
+  .stepper button:hover{background:var(--clay-tint)}
+  .stepper button:active{transform:scale(.9)}
+  .qty{
+    min-width:66px;text-align:center;font-size:13px;font-weight:700;
+    color:var(--clay-deep);white-space:nowrap;
+  }
+  .qty .u{font-weight:400;color:var(--ink-soft);font-size:12px}
+
+  .empty-search{color:var(--ink-soft);font-size:15px;padding:8px 2px 4px}
+
+  /* ---------- Custom add ---------- */
+  .custom{
+    background:var(--surface);border:1px dashed var(--line-strong);
+    border-radius:var(--r);padding:16px;
+  }
+  .custom p{font-size:13.5px;color:var(--ink-soft);margin-bottom:10px}
+  .crow{display:flex;gap:8px}
+  .crow input{
+    flex:1;border:1px solid var(--line-strong);border-radius:var(--r-sm);
+    padding:11px 13px;font-family:inherit;font-size:15px;background:var(--card);
+    outline:none;color:var(--ink);min-width:0;
+  }
+  .crow input:focus{border-color:var(--clay)}
+  .crow button{
+    border:0;background:var(--ink);color:#fff;border-radius:var(--r-sm);
+    padding:0 16px;font-family:inherit;font-size:14px;font-weight:600;
+    cursor:pointer;white-space:nowrap;
+  }
+  .crow button:active{transform:scale(.97)}
+  .custom-list{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+  .custom-list:empty{display:none}
+  .ctag{
+    display:inline-flex;align-items:center;gap:6px;
+    background:var(--clay-tint);border:1px solid var(--clay-tint-line);
+    border-radius:999px;padding:6px 8px 6px 14px;font-size:14px;color:var(--ink);
+  }
+  .ctag button{border:0;background:none;color:var(--clay-deep);font-size:18px;cursor:pointer;line-height:1;padding:0 2px}
+
+  /* ---------- Bottom bar ---------- */
+  .dock{
+    position:fixed;left:0;right:0;bottom:0;z-index:40;
+    background:var(--surface);
+    border-top:1px solid var(--line-strong);
+    box-shadow:0 -6px 24px rgba(26,25,21,.07);
+    padding:12px 18px calc(12px + env(safe-area-inset-bottom));
+    transform:translateY(120%);transition:transform .28s cubic-bezier(.2,.8,.2,1);
+  }
+  .dock.show{transform:translateY(0)}
+  .dock-inner{max-width:680px;margin:0 auto}
+  .dock-top{
+    display:flex;align-items:center;justify-content:space-between;
+    gap:10px;cursor:pointer;padding:2px 0 11px;
+  }
+  .count{font-size:15px;font-weight:600;color:var(--ink)}
+  .count b{color:var(--clay-deep)}
+  .review-link{display:flex;align-items:center;gap:5px;font-size:13.5px;color:var(--ink-soft);font-weight:500}
+  .dock-actions{display:flex;gap:10px}
+  .btn{
+    flex:1;border:0;border-radius:12px;padding:14px;cursor:pointer;
+    font-family:inherit;font-size:15.5px;font-weight:600;
+    display:flex;align-items:center;justify-content:center;gap:8px;
+    transition:transform .06s, background .15s;
+  }
+  .btn:active{transform:scale(.98)}
+  .btn-wa{background:var(--clay);color:#fff;flex:1.7}
+  .btn-wa:hover{background:var(--clay-deep)}
+  .btn-copy{background:var(--card);color:var(--ink);border:1px solid var(--line-strong)}
+  .btn-copy:hover{border-color:var(--ink-faint)}
+
+  /* ---------- Review sheet ---------- */
+  .scrim{
+    position:fixed;inset:0;background:rgba(26,25,21,.4);z-index:50;
+    opacity:0;visibility:hidden;transition:opacity .25s,visibility .25s;
+  }
+  .scrim.show{opacity:1;visibility:visible}
+  .sheet{
+    position:fixed;left:0;right:0;bottom:0;z-index:60;
+    background:var(--bg);border-radius:20px 20px 0 0;
+    max-height:82vh;display:flex;flex-direction:column;
+    transform:translateY(101%);transition:transform .3s cubic-bezier(.2,.8,.2,1);
+    box-shadow:var(--shadow-lift);
+  }
+  .sheet.show{transform:translateY(0)}
+  .sheet-grip{width:38px;height:4px;background:var(--line-strong);border-radius:2px;margin:10px auto 0}
+  .sheet-head{
+    display:flex;align-items:baseline;justify-content:space-between;
+    padding:12px 20px 10px;border-bottom:1px solid var(--line);
+  }
+  .sheet-head h2{font-size:22px;font-weight:700}
+  .sheet-head .x{border:0;background:none;font-size:24px;color:var(--ink-soft);cursor:pointer;line-height:1}
+  .sheet-body{overflow-y:auto;padding:6px 20px 14px;-webkit-overflow-scrolling:touch}
+  .rgroup-h{font-size:11px;font-weight:700;letter-spacing:1px;color:var(--clay);text-transform:uppercase;margin:16px 0 6px}
+  .rrow{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--line)}
+  .rrow .rname{flex:1;font-size:15.5px;font-weight:500}
+  .rrow .rm{border:0;background:none;color:var(--ink-faint);font-size:21px;cursor:pointer;line-height:1;padding:0 2px}
+  .rrow .rm:hover{color:var(--clay-deep)}
+  .sheet-foot{padding:14px 20px calc(16px + env(safe-area-inset-bottom));border-top:1px solid var(--line-strong);background:var(--surface)}
+  .sheet-foot .dock-actions{margin-top:0}
+  .clearall{display:block;margin:14px auto 2px;border:0;background:none;color:var(--ink-faint);font-size:13.5px;font-family:inherit;cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+
+  /* ---------- Toast ---------- */
+  .toast{
+    position:fixed;left:50%;bottom:200px;
+    transform:translateX(-50%) translateY(20px);
+    background:var(--ink);color:#fff;padding:11px 20px;border-radius:999px;
+    font-size:14px;font-weight:500;z-index:80;opacity:0;pointer-events:none;
+    transition:opacity .25s, transform .25s;white-space:nowrap;
+  }
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+  .footnote{text-align:center;color:var(--ink-faint);font-size:12.5px;padding:8px 0 6px}
+
+  @media (prefers-reduced-motion:reduce){
+    *{transition:none!important;scroll-behavior:auto!important}
+  }
+  @media (max-width:380px){
+    .wordmark{font-size:28px}
+    .tile{font-size:14px}
+    .panel-title{font-size:21px}
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header>
+    <div class="brandline">
+      <span class="wordmark">বাজার<span class="dot">.</span></span>
+      <span class="datechip" id="today"></span>
+    </div>
+    <p class="tagline">প্রয়োজনীয় জিনিস বেছে নিন, এক চাপে হোয়াটসঅ্যাপে পাঠান।</p>
+  </header>
+
+  <div class="toolbar">
+    <div class="search">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.2-3.2"/></svg>
+      <input id="search" type="search" inputmode="search" placeholder="জিনিস খুঁজুন… যেমন: পেঁয়াজ, সাবান" autocomplete="off">
+      <button class="clr" id="clr" aria-label="মুছুন">×</button>
+    </div>
+    <nav class="tabs" id="tabs" role="tablist"></nav>
+  </div>
+
+  <main class="panel" id="catalog"></main>
+
+  <p class="footnote">পরিবারের জন্য · সহজ মাসিক বাজার</p>
+</div>
+
+<!-- Bottom dock -->
+<div class="dock" id="dock">
+  <div class="dock-inner">
+    <div class="dock-top" id="openReview">
+      <span class="count" id="count"></span>
+      <span class="review-link">তালিকা দেখুন
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m6 15 6-6 6 6"/></svg>
+      </span>
+    </div>
+    <div class="dock-actions">
+      <button class="btn btn-copy" id="copyBtn">কপি করুন</button>
+      <button class="btn btn-wa" id="waBtn">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38c1.45.79 3.08 1.21 4.79 1.21 5.46 0 9.91-4.45 9.91-9.91C21.95 6.45 17.5 2 12.04 2zm5.8 14.01c-.24.68-1.42 1.31-1.95 1.36-.5.05-1.13.07-1.83-.11-.42-.13-.96-.31-1.65-.61-2.9-1.25-4.79-4.17-4.94-4.36-.14-.19-1.18-1.57-1.18-2.99s.74-2.12 1.01-2.41c.26-.29.57-.36.76-.36.19 0 .38 0 .55.01.18.01.41-.07.65.49.24.58.82 2 .89 2.14.07.14.12.31.02.5-.09.19-.14.31-.29.47-.14.17-.3.37-.43.5-.14.14-.29.29-.12.58.17.29.74 1.22 1.59 1.98 1.09.97 2.01 1.27 2.3 1.42.29.14.46.12.63-.07.17-.19.72-.84.91-1.13.19-.29.39-.24.65-.14.26.09 1.67.79 1.96.93.29.14.48.22.55.34.07.13.07.72-.17 1.4z"/></svg>
+        হোয়াটসঅ্যাপে পাঠান
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Review sheet -->
+<div class="scrim" id="scrim"></div>
+<div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-label="আপনার তালিকা">
+  <div class="sheet-grip"></div>
+  <div class="sheet-head">
+    <h2>আপনার তালিকা</h2>
+    <button class="x" id="closeSheet" aria-label="বন্ধ করুন">×</button>
+  </div>
+  <div class="sheet-body" id="sheetBody"></div>
+  <div class="sheet-foot">
+    <div class="dock-actions">
+      <button class="btn btn-copy" id="copyBtn2">কপি করুন</button>
+      <button class="btn btn-wa" id="waBtn2">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38c1.45.79 3.08 1.21 4.79 1.21 5.46 0 9.91-4.45 9.91-9.91C21.95 6.45 17.5 2 12.04 2zm5.8 14.01c-.24.68-1.42 1.31-1.95 1.36-.5.05-1.13.07-1.83-.11-.42-.13-.96-.31-1.65-.61-2.9-1.25-4.79-4.17-4.94-4.36-.14-.19-1.18-1.57-1.18-2.99s.74-2.12 1.01-2.41c.26-.29.57-.36.76-.36.19 0 .38 0 .55.01.18.01.41-.07.65.49.24.58.82 2 .89 2.14.07.14.12.31.02.5-.09.19-.14.31-.29.47-.14.17-.3.37-.43.5-.14.14-.29.29-.12.58.17.29.74 1.22 1.59 1.98 1.09.97 2.01 1.27 2.3 1.42.29.14.46.12.63-.07.17-.19.72-.84.91-1.13.19-.29.39-.24.65-.14.26.09 1.67.79 1.96.93.29.14.48.22.55.34.07.13.07.72-.17 1.4z"/></svg>
+        পাঠান
+      </button>
+    </div>
+    <button class="clearall" id="clearAll">সব মুছে ফেলুন</button>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* ====== Config ====== */
+const WHATSAPP_NUMBER = "8801628155191"; // +880 1628-155191
+
+/* ====== Catalog (bazar.json থেকে নেওয়া) ======
+   ক্যাটাগরি: short = ট্যাবে দেখানো ছোট নাম, ic = ইমোজি আইকন
+   আইটেম: [নাম, একক, ডিফল্ট পরিমাণ, ধাপ, সর্বনিম্ন, নিয়মিত?] */
+const CATEGORIES = [
+  { id:"cat_01", name:"চাল, ডাল ও আটা",            short:"চাল-ডাল", eb:"মূল খাদ্য",       ic:"🍚" },
+  { id:"cat_02", name:"ভোজ্যতেল ও ঘি",              short:"তেল ও ঘি", eb:"রান্নার মাধ্যম",  ic:"🛢️" },
+  { id:"cat_03", name:"মসলাপাতি (গুঁড়া ও আস্ত)",     short:"মসলা",     eb:"স্বাদ ও সুঘ্রাণ",  ic:"🌶️" },
+  { id:"cat_04", name:"কাঁচাবাজার ও সবজি",          short:"সবজি",     eb:"তাজা খাবার",     ic:"🥬" },
+  { id:"cat_05", name:"মাছ, মাংস ও ডিম",            short:"মাছ-মাংস", eb:"আমিষ",          ic:"🐟" },
+  { id:"cat_06", name:"মুদি ও শুকনা খাবার",          short:"মুদি",     eb:"প্যান্ট্রি আইটেম", ic:"🛒" },
+  { id:"cat_07", name:"চা, দুধ ও পানীয়",            short:"চা-দুধ",   eb:"সকাল-বিকেল",     ic:"🍵" },
+  { id:"cat_08", name:"পরিষ্কার-পরিচ্ছন্নতা",         short:"পরিষ্কার",  eb:"লন্ড্রি ও কিচেন",  ic:"🧼" },
+  { id:"cat_09", name:"প্রসাধন ও ব্যক্তিগত যত্ন",     short:"প্রসাধন",   eb:"টয়লেট্রিজ",       ic:"🧴" },
+  { id:"cat_10", name:"শিশুর যত্ন ও খাবার",          short:"শিশু",     eb:"বাচ্চাদের জন্য",   ic:"🍼" },
+  { id:"cat_11", name:"ফার্মেসি ও প্রাথমিক চিকিৎসা",  short:"ওষুধ",     eb:"জরুরি প্রয়োজন",   ic:"💊" },
+];
+
+const CAT_ITEMS = {
+  cat_01:[
+    ["মিনিকেট চাল","কেজি",25,5,1,1],["নাজিরশাইল চাল","কেজি",5,1,1],
+    ["পোলাওয়ের চাল (চিনিগুঁড়া)","কেজি",2,0.5,0.5],["মসুর ডাল (চিকন)","কেজি",2,0.5,0.5,1],
+    ["মুগ ডাল","কেজি",1,0.5,0.5],["আটা (প্যাকেট)","কেজি",5,1,1,1],
+    ["ময়দা (প্যাকেট)","কেজি",2,1,1],["ছোলা বুট","কেজি",1,0.5,0.5],
+  ],
+  cat_02:[
+    ["সয়াবিন তেল (বোতল)","লিটার",5,1,1,1],["সরিষার তেল (ঘানি ভাঙা)","লিটার",1,0.5,0.5,1],
+    ["ঘি","গ্রাম",250,50,50],
+  ],
+  cat_03:[
+    ["দেশি পেঁয়াজ","কেজি",5,1,1,1],["রসুন","কেজি",1,0.5,0.5,1],["আদা","কেজি",1,0.25,0.25,1],
+    ["শুকনা মরিচ","গ্রাম",250,50,50],["হলুদ গুঁড়া","গ্রাম",200,50,50],["মরিচ গুঁড়া","গ্রাম",200,50,50],
+    ["জিরা (আস্ত)","গ্রাম",100,50,50],["ধনে গুঁড়া","গ্রাম",100,50,50],
+    ["গরম মসলা (এলাচ, দারুচিনি, লবঙ্গ)","প্যাকেট",1,1,1],["লবণ (আয়োডিনযুক্ত)","কেজি",1,1,1,1],
+  ],
+  cat_04:[
+    ["আলু","কেজি",5,1,1,1],["কাঁচা মরিচ","গ্রাম",250,50,50,1],["টমেটো","কেজি",1,0.5,0.5,1],
+    ["লেবু","হালি",1,1,1,1],["ধনে পাতা","আঁটি",2,1,1,1],["বেগুন","কেজি",1,0.5,0.5],
+    ["শসা","কেজি",1,0.5,0.5,1],
+  ],
+  cat_05:[
+    ["ব্রয়লার মুরগি","কেজি",2,0.5,1,1],["সোনালী/দেশি মুরগি","পিস",2,1,1],
+    ["গরুর মাংস","কেজি",2,0.5,1],["রুই মাছ","কেজি",2,0.5,1,1],["ফার্মের ডিম","ডজন",2,0.5,0.5,1],
+  ],
+  cat_06:[
+    ["চিনি (সাদা/লাল)","কেজি",2,1,0.5,1],["নুডলস (স্টিক/কোকোলা)","প্যাকেট",1,1,1],
+    ["ম্যাগি/ইন্সট্যান্ট নুডলস","প্যাকেট (৮ পিস)",1,1,1,1],["মুড়ি","কেজি",1,0.25,0.25,1],
+    ["টোস্ট/লোকাল বিস্কুট","প্যাকেট",2,1,1,1],["চানাচুর","প্যাকেট",1,1,1],
+  ],
+  cat_07:[
+    ["চা পাতা (ইস্পাহানি/সিলন)","গ্রাম",400,100,100,1],["গুঁড়া দুধ (ডিপ্লোমা/মার্কস)","কেজি",1,0.5,0.5,1],
+    ["তরল দুধ (প্যাকেট)","লিটার",1,1,1],["ট্যাং / গ্লুকোজ","জার",1,1,1],
+  ],
+  cat_08:[
+    ["ডিটারজেন্ট পাউডার (সার্ফ এক্সেল/হুইল)","কেজি",1,0.5,0.5,1],["কাপড় কাচার সাবান","পিস",4,1,1,1],
+    ["ডিশওয়াশ বার/লিকুইড (ভিম)","পিস",2,1,1,1],["টয়লেট ক্লিনার (হারপিক)","বোতল",1,1,1,1],
+    ["ফ্লোর ক্লিনার/স্যাভলন লিকুইড","বোতল",1,1,1],["টয়লেট টিস্যু","রোল",4,1,1,1],
+  ],
+  cat_09:[
+    ["গায়ে মাখার সাবান (লাক্স/লাইফবয়)","পিস",3,1,1,1],["টুথপেস্ট","টিউব",1,1,1,1],
+    ["শ্যাম্পু","বোতল",1,1,1],["নারিকেল তেল (প্যারাসুট)","বোতল",1,1,1],
+  ],
+  cat_10:[
+    ["ডায়াপার (প্যাম্পার্স/হাগিস)","প্যাকেট",1,1,1,1],["বেবি ফর্মুলা / দুধ","কৌটা",1,1,1,1],
+    ["বাচ্চাদের সুজি/সিরিয়াল","প্যাকেট",2,1,1,1],["বেবি সোপ ও লোশন","সেট",1,1,1],
+  ],
+  cat_11:[
+    ["প্যারাসিটামল (নাপা/এইচ)","পাতা",2,1,1,1],["গ্যাস্ট্রিকের ওষুধ (সেকলো/সার্জেল)","পাতা",2,1,1,1],
+    ["খাবার স্যালাইন (ওরস্যালাইন-এন)","পিস",10,5,5,1],["ব্যান্ডেজ ও তুলা","সেট",1,1,1],
+  ],
+};
+
+/* ====== Build flat item list ====== */
+const items = [];   // {id, name, unit, def, step, min, f, cat, catName}
+let _id = 0;
+CATEGORIES.forEach(c=>{
+  (CAT_ITEMS[c.id]||[]).forEach(it=>{
+    items.push({
+      id:"i"+(_id++), name:it[0], unit:it[1], def:it[2],
+      step:it[3], min:it[4], f:it[5]===1, cat:c.id, catName:c.name
+    });
+  });
+});
+
+/* ====== State ====== */
+const selected = {};     // id -> {name, unit, qty, step, min, cat}
+const customItems = [];  // strings
+let activeTab = "freq";  // "freq" | cat_id | "custom"
+
+/* ====== Bengali numerals ====== */
+const BN_DIGITS = {"0":"০","1":"১","2":"২","3":"৩","4":"৪","5":"৫","6":"৬","7":"৭","8":"৮","9":"৯"};
+function bn(n){ return String(n).split("").map(c=>(BN_DIGITS[c] ?? c)).join(""); }
+function fmt(q){ return Number.isInteger(q)? q : q.toFixed(2).replace(/0+$/,"").replace(/\.$/,""); }
+function escapeHtml(s){return s.replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));}
+
+/* ====== Date ====== */
+try{
+  document.getElementById("today").textContent =
+    new Date().toLocaleDateString("bn-BD",{day:"numeric",month:"long",year:"numeric"});
+}catch(e){ document.getElementById("today").textContent = ""; }
+
+/* ====== Counts ====== */
+function freqCount(){ return items.filter(i=>i.f && selected[i.id]).length; }
+function catCount(catId){ return items.filter(i=>i.cat===catId && selected[i.id]).length; }
+function totalCount(){ return Object.keys(selected).length + customItems.length; }
+
+/* ====== Tabs ====== */
+const tabsEl = document.getElementById("tabs");
+function tabModel(){
+  return [
+    { key:"freq", label:"নিয়মিত", ic:"⭐", count:freqCount() },
+    ...CATEGORIES.map(c=>({ key:c.id, label:c.short, ic:c.ic, count:catCount(c.id) })),
+    { key:"custom", label:"অন্যান্য", ic:"✏️", count:customItems.length },
+  ];
+}
+function renderTabs(){
+  tabsEl.innerHTML = tabModel().map(t=>{
+    const on = t.key===activeTab ? " active" : "";
+    const badge = t.count>0 ? `<span class="tcount">${bn(t.count)}</span>` : "";
+    return `<button class="tab${on}" role="tab" data-tab="${t.key}" aria-selected="${t.key===activeTab}">
+      <span class="ic">${t.ic}</span><span>${t.label}</span>${badge}</button>`;
+  }).join("");
+  const act = tabsEl.querySelector(".tab.active");
+  if(act) act.scrollIntoView({inline:"center",block:"nearest",behavior:"smooth"});
+}
+tabsEl.addEventListener("click", e=>{
+  const b = e.target.closest("[data-tab]");
+  if(!b) return;
+  activeTab = b.dataset.tab;
+  renderTabs();
+  renderPanel();
+  scrollToPanel();
+});
+function scrollToPanel(){
+  const top = document.querySelector(".toolbar").offsetTop;
+  if(window.scrollY > top) window.scrollTo({top, behavior:"smooth"});
+}
+
+/* ====== Tile ====== */
+function tileHTML(it){
+  if(!selected[it.id]){
+    return `<button class="tile" data-id="${it.id}" data-act="add">
+      <span class="nm">${it.name}</span><span class="plus">+</span></button>`;
+  }
+  const s = selected[it.id];
+  return `<div class="tile on" data-id="${it.id}">
+      <span class="nm">${it.name}</span>
+      <span class="stepper">
+        <button data-id="${it.id}" data-act="dec" aria-label="কমান">−</button>
+        <span class="qty">${bn(fmt(s.qty))} <span class="u">${s.unit}</span></span>
+        <button data-id="${it.id}" data-act="inc" aria-label="বাড়ান">+</button>
+      </span>
+    </div>`;
+}
+
+/* ====== Panel render ====== */
+const catalogEl = document.getElementById("catalog");
+function renderPanel(){
+  if(activeTab==="custom"){ renderCustomPanel(); return; }
+
+  let list, title, eb, sub="";
+  if(activeTab==="freq"){
+    list = items.filter(i=>i.f);
+    title = "নিয়মিত বাজার"; eb = "প্রতি মাসে যা লাগে";
+    sub = "সবচেয়ে সাধারণ জিনিসগুলো এক জায়গায়।";
+  } else {
+    const c = CATEGORIES.find(x=>x.id===activeTab);
+    list = items.filter(i=>i.cat===activeTab);
+    title = c.name; eb = c.eb;
+  }
+  catalogEl.innerHTML = `
+    <div class="panel-head">
+      <span class="eyebrow">${eb}</span>
+      <span class="panel-title">${title}</span>
+      ${sub?`<div class="panel-sub">${sub}</div>`:""}
+    </div>
+    <div class="grid">${list.map(tileHTML).join("")}</div>`;
+}
+
+function renderCustomPanel(){
+  catalogEl.innerHTML = `
+    <div class="panel-head">
+      <span class="eyebrow">নিজে লিখুন</span>
+      <span class="panel-title">অন্যান্য জিনিস</span>
+      <div class="panel-sub">তালিকায় নেই এমন কিছু এখানে লিখে যোগ করুন।</div>
+    </div>
+    <div class="custom">
+      <p>পরিমাণসহ লিখতে পারেন, যেমন “নাপা — ২ পাতা” বা “মাটির হাঁড়ি ১টি”।</p>
+      <div class="crow">
+        <input id="cinput" type="text" placeholder="যেমন: ইনসুলিনের সুঁই" autocomplete="off">
+        <button id="cadd">যোগ করুন</button>
+      </div>
+      <div class="custom-list" id="clist"></div>
+    </div>`;
+  const cinput = document.getElementById("cinput");
+  const cadd = document.getElementById("cadd");
+  const clist = document.getElementById("clist");
+  function addCustom(){
+    const v = cinput.value.trim();
+    if(!v) return;
+    customItems.push(v); cinput.value="";
+    renderCustomList(); renderTabs(); updateDock(); cinput.focus();
+  }
+  cadd.addEventListener("click", addCustom);
+  cinput.addEventListener("keydown", e=>{ if(e.key==="Enter") addCustom(); });
+  clist.addEventListener("click", e=>{
+    const b = e.target.closest("[data-ci]");
+    if(!b) return;
+    customItems.splice(+b.dataset.ci,1);
+    renderCustomList(); renderTabs(); updateDock();
+  });
+  renderCustomList();
+}
+function renderCustomList(){
+  const clist = document.getElementById("clist");
+  if(!clist) return;
+  clist.innerHTML = customItems.map((t,i)=>
+    `<span class="ctag">${escapeHtml(t)}<button data-ci="${i}" aria-label="মুছুন">×</button></span>`).join("");
+}
+
+/* ====== Search ====== */
+const searchEl = document.getElementById("search");
+const clrEl = document.getElementById("clr");
+function renderSearch(q){
+  const res = items.filter(i=> i.name.includes(q));
+  let html = `<div class="panel-head">
+      <span class="eyebrow">ফলাফল</span>
+      <span class="panel-title">“${escapeHtml(q)}”</span></div>`;
+  html += res.length
+    ? `<div class="grid">${res.map(tileHTML).join("")}</div>`
+    : `<p class="empty-search">এই নামে কিছু পাওয়া যায়নি। “অন্যান্য” ট্যাবে নিজে লিখে যোগ করতে পারেন।</p>`;
+  catalogEl.innerHTML = html;
+}
+searchEl.addEventListener("input",()=>{
+  const q = searchEl.value.trim();
+  clrEl.style.display = q ? "block":"none";
+  tabsEl.style.display = q ? "none":"flex";
+  q ? renderSearch(q) : renderPanel();
+});
+clrEl.addEventListener("click",()=>{
+  searchEl.value=""; clrEl.style.display="none"; tabsEl.style.display="flex";
+  renderPanel(); searchEl.focus();
+});
+
+/* ====== Tile interactions (event delegation on catalog) ====== */
+catalogEl.addEventListener("click", e=>{
+  const btn = e.target.closest("[data-act]");
+  if(!btn) return;
+  const it = items.find(i=>i.id===btn.dataset.id);
+  if(!it) return;
+  const act = btn.dataset.act;
+  if(act==="add") addItem(it);
+  else if(act==="inc") changeQty(it, +it.step);
+  else if(act==="dec") changeQty(it, -it.step);
+  refreshTile(it);
+  renderTabs();
+  updateDock();
+});
+function addItem(it){
+  selected[it.id] = {name:it.name, unit:it.unit, qty:it.def, step:it.step, min:it.min ?? it.step, cat:it.cat};
+}
+function changeQty(it, delta){
+  const s = selected[it.id]; if(!s) return;
+  s.qty = Math.round((s.qty + delta)*100)/100;
+  if(s.qty < (s.min ?? s.step)) delete selected[it.id];
+}
+function refreshTile(it){
+  document.querySelectorAll(`.grid [data-id="${it.id}"]`).forEach(node=>{
+    node.outerHTML = tileHTML(it);
+  });
+}
+
+/* ====== Dock ====== */
+const dock = document.getElementById("dock");
+const countEl = document.getElementById("count");
+function updateDock(){
+  const n = totalCount();
+  if(n>0){
+    dock.classList.add("show");
+    countEl.innerHTML = `<b>${bn(n)}</b>টি জিনিস নির্বাচিত`;
+  } else {
+    dock.classList.remove("show");
+    closeSheet();
+  }
+}
+
+/* ====== Build message ====== */
+function buildMessage(){
+  let lines = ["*🛒 বাজারের তালিকা*"];
+  const d = document.getElementById("today").textContent;
+  if(d) lines.push(d);
+  lines.push("");
+  CATEGORIES.forEach(c=>{
+    const picks = items.filter(i=> i.cat===c.id && selected[i.id]);
+    if(!picks.length) return;
+    lines.push(`*${c.name}*`);
+    picks.forEach(i=>{
+      const s = selected[i.id];
+      lines.push(`• ${i.name} — ${bn(fmt(s.qty))} ${s.unit}`);
+    });
+    lines.push("");
+  });
+  if(customItems.length){
+    lines.push("*অন্যান্য*");
+    customItems.forEach(t=> lines.push(`• ${t}`));
+    lines.push("");
+  }
+  lines.push(`মোট ${bn(totalCount())}টি জিনিস`);
+  return lines.join("\n").trim();
+}
+
+/* ====== Actions ====== */
+function sendWhatsApp(){
+  if(totalCount()===0) return;
+  const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(buildMessage())}`;
+  window.open(url,"_blank");
+}
+async function copyList(){
+  if(totalCount()===0) return;
+  const text = buildMessage();
+  try{
+    await navigator.clipboard.writeText(text);
+    toast("তালিকা কপি হয়েছে ✓");
+  }catch(e){
+    const ta=document.createElement("textarea");
+    ta.value=text; ta.style.position="fixed"; ta.style.opacity="0";
+    document.body.appendChild(ta); ta.select();
+    try{ document.execCommand("copy"); toast("তালিকা কপি হয়েছে ✓"); }
+    catch(_){ toast("কপি করা যায়নি"); }
+    document.body.removeChild(ta);
+  }
+}
+document.getElementById("waBtn").addEventListener("click", sendWhatsApp);
+document.getElementById("waBtn2").addEventListener("click", sendWhatsApp);
+document.getElementById("copyBtn").addEventListener("click", copyList);
+document.getElementById("copyBtn2").addEventListener("click", copyList);
+
+/* ====== Toast ====== */
+let toastTimer;
+function toast(msg){
+  const t=document.getElementById("toast");
+  t.textContent=msg; t.classList.add("show");
+  clearTimeout(toastTimer);
+  toastTimer=setTimeout(()=>t.classList.remove("show"),1900);
+}
+
+/* ====== Review sheet ====== */
+const scrim=document.getElementById("scrim");
+const sheet=document.getElementById("sheet");
+const sheetBody=document.getElementById("sheetBody");
+function openReview(){
+  if(totalCount()===0) return;
+  renderSheet();
+  scrim.classList.add("show"); sheet.classList.add("show");
+  document.body.style.overflow="hidden";
+}
+function closeSheet(){
+  scrim.classList.remove("show"); sheet.classList.remove("show");
+  document.body.style.overflow="";
+}
+document.getElementById("openReview").addEventListener("click", openReview);
+document.getElementById("closeSheet").addEventListener("click", closeSheet);
+scrim.addEventListener("click", closeSheet);
+
+function renderSheet(){
+  let html="";
+  CATEGORIES.forEach(c=>{
+    const picks = items.filter(i=> i.cat===c.id && selected[i.id]);
+    if(!picks.length) return;
+    html += `<div class="rgroup-h">${c.name}</div>`;
+    picks.forEach(i=>{
+      const s=selected[i.id];
+      html += `<div class="rrow">
+        <span class="rname">${i.name}</span>
+        <span class="stepper">
+          <button data-sid="${i.id}" data-sact="dec" aria-label="কমান">−</button>
+          <span class="qty">${bn(fmt(s.qty))} <span class="u">${s.unit}</span></span>
+          <button data-sid="${i.id}" data-sact="inc" aria-label="বাড়ান">+</button>
+        </span>
+        <button class="rm" data-sid="${i.id}" data-sact="del" aria-label="বাদ দিন">×</button>
+      </div>`;
+    });
+  });
+  if(customItems.length){
+    html += `<div class="rgroup-h">অন্যান্য</div>`;
+    customItems.forEach((t,i)=>{
+      html += `<div class="rrow"><span class="rname">${escapeHtml(t)}</span>
+        <button class="rm" data-cdel="${i}" aria-label="বাদ দিন">×</button></div>`;
+    });
+  }
+  sheetBody.innerHTML = html;
+}
+sheetBody.addEventListener("click", e=>{
+  const b=e.target.closest("[data-sact],[data-cdel]");
+  if(!b) return;
+  if(b.dataset.cdel!==undefined){
+    customItems.splice(+b.dataset.cdel,1);
+    if(activeTab==="custom") renderCustomList();
+  } else {
+    const it=items.find(i=>i.id===b.dataset.sid);
+    const act=b.dataset.sact;
+    if(act==="inc") changeQty(it,+it.step);
+    else if(act==="dec") changeQty(it,-it.step);
+    else if(act==="del") delete selected[it.id];
+    refreshTile(it);
+  }
+  renderTabs();
+  updateDock();
+  if(totalCount()===0){ closeSheet(); return; }
+  renderSheet();
+});
+document.getElementById("clearAll").addEventListener("click",()=>{
+  Object.keys(selected).forEach(k=>delete selected[k]);
+  customItems.length=0;
+  renderTabs(); renderPanel(); updateDock(); closeSheet();
+});
+
+/* ====== Init ====== */
+renderTabs();
+renderPanel();
+</script>
+</body>
+</html>
