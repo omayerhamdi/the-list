@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<style>
+  @font-face{
+    font-family:"SolaimanLipi";
+    src:url("SolaimanLipi.ttf") format("truetype");
+    font-weight:400 700;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{width:1200px;height:630px}
+  body{
+    font-family:"SolaimanLipi",sans-serif;
+    background:#F4F2EC;
+    color:#1A1915;
+    position:relative;
+    overflow:hidden;
+  }
+  .frame{
+    position:absolute;inset:26px;
+    border:1px solid #E9C7B5;border-radius:26px;
+  }
+  .stage{
+    position:absolute;inset:0;
+    display:flex;align-items:center;
+    padding:0 78px;gap:56px;
+  }
+  .left{flex:1;min-width:0}
+  .eyebrow{
+    display:inline-block;
+    font-size:22px;font-weight:700;letter-spacing:2px;
+    color:#C2603F;text-transform:uppercase;
+    padding:8px 16px;border:1px solid #E9C7B5;border-radius:999px;
+    background:#F6E7DF;margin-bottom:26px;
+  }
+  .wordmark{
+    font-size:132px;font-weight:700;line-height:1.02;letter-spacing:.5px;
+  }
+  .wordmark .dot{color:#C2603F}
+  .tagline{
+    margin-top:26px;font-size:34px;line-height:1.45;color:#6B675D;
+    max-width:560px;
+  }
+  .foot{
+    margin-top:40px;display:flex;align-items:center;gap:14px;
+    font-size:26px;font-weight:600;color:#A94E31;
+  }
+  .foot .wa{
+    width:44px;height:44px;border-radius:50%;
+    background:#C2603F;display:grid;place-items:center;
+  }
+  /* Right: a stylised list card */
+  .card{
+    flex:none;width:360px;
+    background:#fff;border:1px solid #E6E2D6;border-radius:24px;
+    box-shadow:0 24px 60px rgba(26,25,21,.14);
+    padding:34px 32px;transform:rotate(2.5deg);
+  }
+  .card h3{
+    font-size:30px;font-weight:700;margin-bottom:8px;
+    display:flex;align-items:center;gap:10px;
+  }
+  .card .badge{
+    margin-left:auto;font-size:19px;font-weight:700;color:#fff;
+    background:#C2603F;border-radius:999px;padding:4px 14px;
+  }
+  .card .date{font-size:19px;color:#9A968B;margin-bottom:20px}
+  .row{
+    display:flex;align-items:center;gap:14px;
+    padding:15px 0;border-top:1px solid #EFEBDF;font-size:24px;
+  }
+  .row .tick{
+    width:30px;height:30px;flex:none;border-radius:50%;
+    background:#F6E7DF;color:#A94E31;display:grid;place-items:center;
+    font-size:18px;font-weight:700;
+  }
+  .row .q{margin-left:auto;font-size:20px;font-weight:700;color:#A94E31}
+</style>
+</head>
+<body>
+  <div class="frame"></div>
+  <div class="stage">
+    <div class="left">
+      <span class="eyebrow">পরিবারের বাজার</span>
+      <div class="wordmark">দ্যা লিস্ট<span class="dot">.</span></div>
+      <div class="tagline">প্রয়োজনীয় জিনিস বেছে নিন, এক চাপেই সুন্দর তালিকা হোয়াটসঅ্যাপে।</div>
+      <div class="foot">
+        <span class="wa">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="#fff"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38c1.45.79 3.08 1.21 4.79 1.21 5.46 0 9.91-4.45 9.91-9.91C21.95 6.45 17.5 2 12.04 2zm5.8 14.01c-.24.68-1.42 1.31-1.95 1.36-.5.05-1.13.07-1.83-.11-.42-.13-.96-.31-1.65-.61-2.9-1.25-4.79-4.17-4.94-4.36-.14-.19-1.18-1.57-1.18-2.99s.74-2.12 1.01-2.41c.26-.29.57-.36.76-.36.19 0 .38 0 .55.01.18.01.41-.07.65.49.24.58.82 2 .89 2.14.07.14.12.31.02.5-.09.19-.14.31-.29.47-.14.17-.3.37-.43.5-.14.14-.29.29-.12.58.17.29.74 1.22 1.59 1.98 1.09.97 2.01 1.27 2.3 1.42.29.14.46.12.63-.07.17-.19.72-.84.91-1.13.19-.29.39-.24.65-.14.26.09 1.67.79 1.96.93.29.14.48.22.55.34.07.13.07.72-.17 1.4z"/></svg>
+        </span>
+        হোয়াটসঅ্যাপে এক চাপে
+      </div>
+    </div>
+    <div class="card">
+      <h3>🛒 বাজারের তালিকা <span class="badge">৮</span></h3>
+      <div class="date">১২ জুলাই, ২০২৬</div>
+      <div class="row"><span class="tick">✓</span> মিনিকেট চাল <span class="q">২৫ কেজি</span></div>
+      <div class="row"><span class="tick">✓</span> দেশি পেঁয়াজ <span class="q">৫ কেজি</span></div>
+      <div class="row"><span class="tick">✓</span> সয়াবিন তেল <span class="q">৫ লিটার</span></div>
+      <div class="row"><span class="tick">✓</span> রুই মাছ <span class="q">২ কেজি</span></div>
+      <div class="row"><span class="tick">✓</span> ফার্মের ডিম <span class="q">২ ডজন</span></div>
+    </div>
+  </div>
+</body>
+</html>
