@@ -3,17 +3,19 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>দ্যা লিস্ট — পরিবারের বাজারের তালিকা এক চাপে</title>
-<meta name="description" content="দ্যা লিস্ট — প্রয়োজনীয় জিনিস ট্যাপ করে বেছে নিন, পরিমাণ ঠিক করুন, এক চাপেই সুন্দর ফরম্যাটে হোয়াটসঅ্যাপে বাজারের তালিকা পাঠিয়ে দিন। টাইপ করার ঝামেলা নেই।">
+<title>দ্যা লিস্ট — বাজারের তালিকা সহজে বানান ও পাঠান</title>
+<meta name="description" content="মাসের, সপ্তাহের বা দিনের বাজার — যা যা লাগবে বেছে নিন, গোছানো তালিকাটা কপি করে বা হোয়াটসঅ্যাপে পাঠিয়ে দিন। টাইপ করার ঝামেলা ছাড়াই।">
 <meta name="theme-color" content="#F4F2EC">
 
 <!-- Open Graph / social preview -->
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="দ্যা লিস্ট">
-<meta property="og:title" content="দ্যা লিস্ট — পরিবারের বাজারের তালিকা এক চাপে">
-<meta property="og:description" content="প্রয়োজনীয় জিনিস ট্যাপ করে বেছে নিন, এক চাপেই সুন্দর ফরম্যাটে হোয়াটসঅ্যাপে বাজারের তালিকা পাঠান।">
+<meta property="og:title" content="দ্যা লিস্ট — বাজারের তালিকা সহজে বানান ও পাঠান">
+<meta property="og:description" content="যা যা লাগবে বেছে নিন, গোছানো তালিকাটা কপি করে বা হোয়াটসঅ্যাপে পাঠিয়ে দিন।">
 <meta property="og:url" content="https://bazar.omayerhamdi.com/">
-<meta property="og:image" content="https://bazar.omayerhamdi.com/og-image.png">
+<meta property="og:image" content="https://bazar.omayerhamdi.com/og-image.png?v=2">
+<meta property="og:image:secure_url" content="https://bazar.omayerhamdi.com/og-image.png?v=2">
+<meta property="og:image:type" content="image/png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="দ্যা লিস্ট — পরিবারের বাজারের তালিকা">
@@ -21,9 +23,9 @@
 
 <!-- Twitter -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="দ্যা লিস্ট — পরিবারের বাজারের তালিকা এক চাপে">
-<meta name="twitter:description" content="প্রয়োজনীয় জিনিস ট্যাপ করে বেছে নিন, এক চাপেই হোয়াটসঅ্যাপে বাজারের তালিকা পাঠান।">
-<meta name="twitter:image" content="https://bazar.omayerhamdi.com/og-image.png">
+<meta name="twitter:title" content="দ্যা লিস্ট — বাজারের তালিকা সহজে বানান ও পাঠান">
+<meta name="twitter:description" content="যা যা লাগবে বেছে নিন, গোছানো তালিকাটা কপি করে বা হোয়াটসঅ্যাপে পাঠিয়ে দিন।">
+<meta name="twitter:image" content="https://bazar.omayerhamdi.com/og-image.png?v=2">
 <style>
   /* ---------- Local font: SolaimanLipi ---------- */
   @font-face{
@@ -59,7 +61,7 @@
     color:var(--ink);
     line-height:1.6;
     font-size:16px;
-    padding-bottom:calc(168px + env(safe-area-inset-bottom));
+    padding-bottom:calc(96px + env(safe-area-inset-bottom));
     overflow-x:hidden;
   }
   .wrap{max-width:680px;margin:0 auto;padding:0 18px}
@@ -110,9 +112,9 @@
 
   /* ---------- Floating corner cart (always-visible list indicator) ---------- */
   .cart{
-    position:fixed;z-index:45;right:16px;
-    bottom:calc(150px + env(safe-area-inset-bottom));
-    width:58px;height:58px;border-radius:50%;
+    position:fixed;z-index:45;right:18px;
+    bottom:calc(22px + env(safe-area-inset-bottom));
+    width:60px;height:60px;border-radius:50%;
     border:0;background:var(--clay);color:#fff;
     display:grid;place-items:center;cursor:pointer;
     box-shadow:0 10px 26px rgba(194,96,63,.42);
@@ -238,52 +240,41 @@
 
   .empty-search{color:var(--ink-soft);font-size:15px;padding:8px 2px 4px}
 
-  /* ---------- Custom add ---------- */
-  .custom{
-    background:var(--surface);border:1px dashed var(--line-strong);
-    border-radius:var(--r);padding:16px;
+  /* ---------- Inline "add your own" (under every category) ---------- */
+  .addbox{
+    margin-top:20px;padding-top:18px;
+    border-top:1px dashed var(--line-strong);
   }
-  .custom p{font-size:13.5px;color:var(--ink-soft);margin-bottom:10px}
-  .crow{display:flex;gap:8px}
-  .crow input{
-    flex:1;border:1px solid var(--line-strong);border-radius:var(--r-sm);
-    padding:11px 13px;font-family:inherit;font-size:15px;background:var(--card);
-    outline:none;color:var(--ink);min-width:0;
+  .addbox-label{
+    font-size:13.5px;color:var(--ink-soft);margin-bottom:9px;
+    display:flex;align-items:center;gap:7px;
   }
-  .crow input:focus{border-color:var(--clay)}
-  .crow button{
-    border:0;background:var(--ink);color:#fff;border-radius:var(--r-sm);
-    padding:0 16px;font-family:inherit;font-size:14px;font-weight:600;
+  .addbox-label .ai{color:var(--clay);font-size:15px}
+  .arow{display:flex;gap:8px}
+  .arow input{
+    flex:1;min-width:0;border:1px solid var(--line-strong);border-radius:999px;
+    padding:11px 16px;font-family:inherit;font-size:15px;background:var(--card);
+    outline:none;color:var(--ink);
+  }
+  .arow input:focus{border-color:var(--clay);box-shadow:0 0 0 3px var(--clay-tint)}
+  .arow input::placeholder{color:var(--ink-faint)}
+  .arow button{
+    flex:none;border:0;background:var(--clay);color:#fff;border-radius:999px;
+    padding:0 20px;font-family:inherit;font-size:14.5px;font-weight:600;
     cursor:pointer;white-space:nowrap;
   }
-  .crow button:active{transform:scale(.97)}
-  .custom-list{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
-  .custom-list:empty{display:none}
+  .arow button:hover{background:var(--clay-deep)}
+  .arow button:active{transform:scale(.96)}
+  .addchips{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+  .addchips:empty{display:none}
   .ctag{
     display:inline-flex;align-items:center;gap:6px;
     background:var(--clay-tint);border:1px solid var(--clay-tint-line);
     border-radius:999px;padding:6px 8px 6px 14px;font-size:14px;color:var(--ink);
   }
-  .ctag button{border:0;background:none;color:var(--clay-deep);font-size:18px;cursor:pointer;line-height:1;padding:0 2px}
+  .ctag .cx{border:0;background:none;color:var(--clay-deep);font-size:18px;cursor:pointer;line-height:1;padding:0 2px}
 
-  /* ---------- Bottom bar ---------- */
-  .dock{
-    position:fixed;left:0;right:0;bottom:0;z-index:40;
-    background:var(--surface);
-    border-top:1px solid var(--line-strong);
-    box-shadow:0 -6px 24px rgba(26,25,21,.07);
-    padding:12px 18px calc(12px + env(safe-area-inset-bottom));
-    transform:translateY(120%);transition:transform .28s cubic-bezier(.2,.8,.2,1);
-  }
-  .dock.show{transform:translateY(0)}
-  .dock-inner{max-width:680px;margin:0 auto}
-  .dock-top{
-    display:flex;align-items:center;justify-content:space-between;
-    gap:10px;cursor:pointer;padding:2px 0 11px;
-  }
-  .count{font-size:15px;font-weight:600;color:var(--ink)}
-  .count b{color:var(--clay-deep)}
-  .review-link{display:flex;align-items:center;gap:5px;font-size:13.5px;color:var(--ink-soft);font-weight:500}
+  /* ---------- Sheet action buttons ---------- */
   .dock-actions{display:flex;gap:10px}
   .btn{
     flex:1;border:0;border-radius:12px;padding:14px;cursor:pointer;
@@ -330,7 +321,7 @@
 
   /* ---------- Toast ---------- */
   .toast{
-    position:fixed;left:50%;bottom:200px;
+    position:fixed;left:50%;bottom:100px;
     transform:translateX(-50%) translateY(20px);
     background:var(--ink);color:#fff;padding:11px 20px;border-radius:999px;
     font-size:14px;font-weight:500;z-index:80;opacity:0;pointer-events:none;
@@ -358,7 +349,7 @@
       <span class="wordmark">দ্যা লিস্ট<span class="dot">.</span></span>
       <span class="datechip" id="today"></span>
     </div>
-    <p class="tagline">প্রয়োজনীয় জিনিস বেছে নিন, এক চাপে হোয়াটসঅ্যাপে পাঠান।</p>
+    <p class="tagline">যা যা লাগবে বেছে নিন, গোছানো তালিকাটা কপি করে বা হোয়াটসঅ্যাপে পাঠিয়ে দিন।</p>
   </header>
 
   <div class="toolbar">
@@ -372,7 +363,7 @@
 
   <main class="panel" id="catalog"></main>
 
-  <p class="footnote">পরিবারের জন্য · সহজ মাসিক বাজার</p>
+  <p class="footnote">পরিবারের বাজার-সদাই · সহজে তালিকা তৈরি</p>
 </div>
 
 <!-- Floating corner cart (always-visible list indicator) -->
@@ -380,25 +371,6 @@
   <svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v13a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
   <span class="cart-badge" id="cartBadge">০</span>
 </button>
-
-<!-- Bottom dock -->
-<div class="dock" id="dock">
-  <div class="dock-inner">
-    <div class="dock-top" id="openReview">
-      <span class="count" id="count"></span>
-      <span class="review-link">তালিকা দেখুন
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m6 15 6-6 6 6"/></svg>
-      </span>
-    </div>
-    <div class="dock-actions">
-      <button class="btn btn-copy" id="copyBtn">কপি করুন</button>
-      <button class="btn btn-wa" id="waBtn">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38c1.45.79 3.08 1.21 4.79 1.21 5.46 0 9.91-4.45 9.91-9.91C21.95 6.45 17.5 2 12.04 2zm5.8 14.01c-.24.68-1.42 1.31-1.95 1.36-.5.05-1.13.07-1.83-.11-.42-.13-.96-.31-1.65-.61-2.9-1.25-4.79-4.17-4.94-4.36-.14-.19-1.18-1.57-1.18-2.99s.74-2.12 1.01-2.41c.26-.29.57-.36.76-.36.19 0 .38 0 .55.01.18.01.41-.07.65.49.24.58.82 2 .89 2.14.07.14.12.31.02.5-.09.19-.14.31-.29.47-.14.17-.3.37-.43.5-.14.14-.29.29-.12.58.17.29.74 1.22 1.59 1.98 1.09.97 2.01 1.27 2.3 1.42.29.14.46.12.63-.07.17-.19.72-.84.91-1.13.19-.29.39-.24.65-.14.26.09 1.67.79 1.96.93.29.14.48.22.55.34.07.13.07.72-.17 1.4z"/></svg>
-        হোয়াটসঅ্যাপে পাঠান
-      </button>
-    </div>
-  </div>
-</div>
 
 <!-- Review sheet -->
 <div class="scrim" id="scrim"></div>
@@ -539,8 +511,9 @@ CATEGORIES.forEach(c=>{
 
 /* ====== State ====== */
 const selected = {};     // id -> {name, unit, qty, step, min, cat}
-const customItems = [];  // strings
-let activeTab = "freq";  // "freq" | cat_id | "custom"
+const customItems = [];  // {id, name, cat} — নিজে যোগ করা জিনিস, ক্যাটাগরি অনুযায়ী
+let _cid = 0;
+let activeTab = "freq";  // "freq" | cat_id
 
 /* ====== Bengali numerals ====== */
 const BN_DIGITS = {"0":"০","1":"১","2":"২","3":"৩","4":"৪","5":"৫","6":"৬","7":"৭","8":"৮","9":"৯"};
@@ -557,6 +530,7 @@ try{
 /* ====== Counts ====== */
 function freqCount(){ return items.filter(i=>i.f && selected[i.id]).length; }
 function catCount(catId){ return items.filter(i=>i.cat===catId && selected[i.id]).length; }
+function customInCat(catId){ return customItems.filter(c=>c.cat===catId).length; }
 function totalCount(){ return Object.keys(selected).length + customItems.length; }
 
 /* ====== Tabs ====== */
@@ -564,8 +538,7 @@ const tabsEl = document.getElementById("tabs");
 function tabModel(){
   return [
     { key:"freq", label:"নিয়মিত", ic:"⭐", count:freqCount() },
-    ...CATEGORIES.map(c=>({ key:c.id, label:c.short, ic:c.ic, count:catCount(c.id) })),
-    { key:"custom", label:"অন্যান্য", ic:"✏️", count:customItems.length },
+    ...CATEGORIES.map(c=>({ key:c.id, label:c.short, ic:c.ic, count:catCount(c.id)+customInCat(c.id) })),
   ];
 }
 function renderTabs(){
@@ -610,18 +583,33 @@ function tileHTML(it){
 
 /* ====== Panel render ====== */
 const catalogEl = document.getElementById("catalog");
-function renderPanel(){
-  if(activeTab==="custom"){ renderCustomPanel(); return; }
 
-  let list, title, eb, sub="";
+function customChipsHTML(catId){
+  return customItems.filter(c=>c.cat===catId).map(c=>
+    `<span class="ctag">${escapeHtml(c.name)}<button class="cx" data-cdel="${c.id}" aria-label="মুছুন">×</button></span>`
+  ).join("");
+}
+function addboxHTML(catId){
+  return `<div class="addbox">
+      <div class="addbox-label"><span class="ai">✎</span> এই তালিকায় নেই এমন কিছু? এখানে লিখে যোগ করুন</div>
+      <div class="arow">
+        <input class="cinput" type="text" data-bucket="${catId}" placeholder="যেমন: মাটির চুলা, বিশেষ কিছু…" autocomplete="off">
+        <button class="cadd" data-bucket="${catId}">যোগ করুন</button>
+      </div>
+      <div class="addchips">${customChipsHTML(catId)}</div>
+    </div>`;
+}
+function renderPanel(){
+  let list, title, eb, sub="", addbox="";
   if(activeTab==="freq"){
     list = items.filter(i=>i.f);
-    title = "নিয়মিত বাজার"; eb = "প্রতি মাসে যা লাগে";
+    title = "নিয়মিত বাজার"; eb = "নিয়মিত যা লাগে";
     sub = "সবচেয়ে সাধারণ জিনিসগুলো এক জায়গায়।";
   } else {
     const c = CATEGORIES.find(x=>x.id===activeTab);
     list = items.filter(i=>i.cat===activeTab);
     title = c.name; eb = c.eb;
+    addbox = addboxHTML(activeTab);
   }
   catalogEl.innerHTML = `
     <div class="panel-head">
@@ -629,48 +617,25 @@ function renderPanel(){
       <span class="panel-title">${title}</span>
       ${sub?`<div class="panel-sub">${sub}</div>`:""}
     </div>
-    <div class="grid">${list.map(tileHTML).join("")}</div>`;
+    <div class="grid">${list.map(tileHTML).join("")}</div>
+    ${addbox}`;
 }
 
-function renderCustomPanel(){
-  catalogEl.innerHTML = `
-    <div class="panel-head">
-      <span class="eyebrow">নিজে লিখুন</span>
-      <span class="panel-title">অন্যান্য জিনিস</span>
-      <div class="panel-sub">তালিকায় নেই এমন কিছু এখানে লিখে যোগ করুন।</div>
-    </div>
-    <div class="custom">
-      <p>পরিমাণসহ লিখতে পারেন, যেমন “নাপা — ২ পাতা” বা “মাটির হাঁড়ি ১টি”।</p>
-      <div class="crow">
-        <input id="cinput" type="text" placeholder="যেমন: ইনসুলিনের সুঁই" autocomplete="off">
-        <button id="cadd">যোগ করুন</button>
-      </div>
-      <div class="custom-list" id="clist"></div>
-    </div>`;
-  const cinput = document.getElementById("cinput");
-  const cadd = document.getElementById("cadd");
-  const clist = document.getElementById("clist");
-  function addCustom(){
-    const v = cinput.value.trim();
-    if(!v) return;
-    customItems.push(v); cinput.value="";
-    renderCustomList(); renderTabs(); updateDock(); cinput.focus();
-  }
-  cadd.addEventListener("click", addCustom);
-  cinput.addEventListener("keydown", e=>{ if(e.key==="Enter") addCustom(); });
-  clist.addEventListener("click", e=>{
-    const b = e.target.closest("[data-ci]");
-    if(!b) return;
-    customItems.splice(+b.dataset.ci,1);
-    renderCustomList(); renderTabs(); updateDock();
-  });
-  renderCustomList();
+/* ====== Custom (self-added) items ====== */
+function addCustomFromInput(bucket){
+  const input = catalogEl.querySelector(`.cinput[data-bucket="${bucket}"]`);
+  if(!input) return;
+  const v = input.value.trim();
+  if(!v) return;
+  customItems.push({ id:"c"+(_cid++), name:v, cat:bucket });
+  renderPanel(); renderTabs(); updateUI();
+  const again = catalogEl.querySelector(`.cinput[data-bucket="${bucket}"]`);
+  if(again) again.focus();
+  toast("যোগ হয়েছে ✓");
 }
-function renderCustomList(){
-  const clist = document.getElementById("clist");
-  if(!clist) return;
-  clist.innerHTML = customItems.map((t,i)=>
-    `<span class="ctag">${escapeHtml(t)}<button data-ci="${i}" aria-label="মুছুন">×</button></span>`).join("");
+function removeCustomById(id){
+  const idx = customItems.findIndex(c=>c.id===id);
+  if(idx>=0) customItems.splice(idx,1);
 }
 
 /* ====== Search ====== */
@@ -683,7 +648,7 @@ function renderSearch(q){
       <span class="panel-title">“${escapeHtml(q)}”</span></div>`;
   html += res.length
     ? `<div class="grid">${res.map(tileHTML).join("")}</div>`
-    : `<p class="empty-search">এই নামে কিছু পাওয়া যায়নি। “অন্যান্য” ট্যাবে নিজে লিখে যোগ করতে পারেন।</p>`;
+    : `<p class="empty-search">এই নামে কিছু পাওয়া যায়নি। যেকোনো ক্যাটাগরিতে গিয়ে নিচের ঘরে নিজে লিখে যোগ করে নিতে পারেন।</p>`;
   catalogEl.innerHTML = html;
 }
 searchEl.addEventListener("input",()=>{
@@ -697,8 +662,15 @@ clrEl.addEventListener("click",()=>{
   renderPanel(); searchEl.focus();
 });
 
-/* ====== Tile interactions (event delegation on catalog) ====== */
+/* ====== Catalog interactions (event delegation) ====== */
 catalogEl.addEventListener("click", e=>{
+  // custom: add
+  const addBtn = e.target.closest(".cadd");
+  if(addBtn){ addCustomFromInput(addBtn.dataset.bucket); return; }
+  // custom: remove chip
+  const del = e.target.closest("[data-cdel]");
+  if(del){ removeCustomById(del.dataset.cdel); renderPanel(); renderTabs(); updateUI(); return; }
+  // catalog tile add / stepper
   const btn = e.target.closest("[data-act]");
   if(!btn) return;
   const it = items.find(i=>i.id===btn.dataset.id);
@@ -709,7 +681,13 @@ catalogEl.addEventListener("click", e=>{
   else if(act==="dec") changeQty(it, -it.step);
   refreshTile(it);
   renderTabs();
-  updateDock();
+  updateUI();
+});
+catalogEl.addEventListener("keydown", e=>{
+  if(e.key==="Enter" && e.target.classList.contains("cinput")){
+    e.preventDefault();
+    addCustomFromInput(e.target.dataset.bucket);
+  }
 });
 function addItem(it){
   selected[it.id] = {name:it.name, unit:it.unit, qty:it.def, step:it.step, min:it.min ?? it.step, cat:it.cat};
@@ -725,22 +703,12 @@ function refreshTile(it){
   });
 }
 
-/* ====== Dock + corner cart ====== */
-const dock = document.getElementById("dock");
-const countEl = document.getElementById("count");
+/* ====== Floating corner cart ====== */
 const cartBtn = document.getElementById("cartBtn");
 const cartBadge = document.getElementById("cartBadge");
 let lastCount = 0;
-function updateDock(){
+function updateUI(){
   const n = totalCount();
-  if(n>0){
-    dock.classList.add("show");
-    countEl.innerHTML = `<b>${bn(n)}</b>টি জিনিস নির্বাচিত`;
-  } else {
-    dock.classList.remove("show");
-    closeSheet();
-  }
-  // floating corner cart
   cartBadge.textContent = bn(n);
   cartBtn.classList.toggle("show", n>0);
   if(n>lastCount && n>0){
@@ -749,10 +717,11 @@ function updateDock(){
     cartBtn.classList.add("bump");
   }
   lastCount = n;
+  if(n===0) closeSheet();
 }
 cartBtn.addEventListener("click", ()=>{
   if(totalCount()>0) openReview();
-  else toast("এখনো কিছু নির্বাচন করা হয়নি");
+  else toast("এখনো কিছু বেছে নেওয়া হয়নি");
 });
 
 /* ====== Build message ====== */
@@ -763,19 +732,16 @@ function buildMessage(){
   lines.push("");
   CATEGORIES.forEach(c=>{
     const picks = items.filter(i=> i.cat===c.id && selected[i.id]);
-    if(!picks.length) return;
+    const customs = customItems.filter(x=> x.cat===c.id);
+    if(!picks.length && !customs.length) return;
     lines.push(`*${c.name}*`);
     picks.forEach(i=>{
       const s = selected[i.id];
       lines.push(`• ${i.name} — ${bn(fmt(s.qty))} ${s.unit}`);
     });
+    customs.forEach(x=> lines.push(`• ${x.name}`));
     lines.push("");
   });
-  if(customItems.length){
-    lines.push("*অন্যান্য*");
-    customItems.forEach(t=> lines.push(`• ${t}`));
-    lines.push("");
-  }
   lines.push(`মোট ${bn(totalCount())}টি জিনিস`);
   return lines.join("\n").trim();
 }
@@ -801,9 +767,7 @@ async function copyList(){
     document.body.removeChild(ta);
   }
 }
-document.getElementById("waBtn").addEventListener("click", sendWhatsApp);
 document.getElementById("waBtn2").addEventListener("click", sendWhatsApp);
-document.getElementById("copyBtn").addEventListener("click", copyList);
 document.getElementById("copyBtn2").addEventListener("click", copyList);
 
 /* ====== Toast ====== */
@@ -829,7 +793,6 @@ function closeSheet(){
   scrim.classList.remove("show"); sheet.classList.remove("show");
   document.body.style.overflow="";
 }
-document.getElementById("openReview").addEventListener("click", openReview);
 document.getElementById("closeSheet").addEventListener("click", closeSheet);
 scrim.addEventListener("click", closeSheet);
 
@@ -837,7 +800,8 @@ function renderSheet(){
   let html="";
   CATEGORIES.forEach(c=>{
     const picks = items.filter(i=> i.cat===c.id && selected[i.id]);
-    if(!picks.length) return;
+    const customs = customItems.filter(x=> x.cat===c.id);
+    if(!picks.length && !customs.length) return;
     html += `<div class="rgroup-h">${c.name}</div>`;
     picks.forEach(i=>{
       const s=selected[i.id];
@@ -851,22 +815,19 @@ function renderSheet(){
         <button class="rm" data-sid="${i.id}" data-sact="del" aria-label="বাদ দিন">×</button>
       </div>`;
     });
-  });
-  if(customItems.length){
-    html += `<div class="rgroup-h">অন্যান্য</div>`;
-    customItems.forEach((t,i)=>{
-      html += `<div class="rrow"><span class="rname">${escapeHtml(t)}</span>
-        <button class="rm" data-cdel="${i}" aria-label="বাদ দিন">×</button></div>`;
+    customs.forEach(x=>{
+      html += `<div class="rrow"><span class="rname">${escapeHtml(x.name)}</span>
+        <button class="rm" data-cdel="${x.id}" aria-label="বাদ দিন">×</button></div>`;
     });
-  }
+  });
   sheetBody.innerHTML = html;
 }
 sheetBody.addEventListener("click", e=>{
   const b=e.target.closest("[data-sact],[data-cdel]");
   if(!b) return;
   if(b.dataset.cdel!==undefined){
-    customItems.splice(+b.dataset.cdel,1);
-    if(activeTab==="custom") renderCustomList();
+    removeCustomById(b.dataset.cdel);
+    renderPanel();
   } else {
     const it=items.find(i=>i.id===b.dataset.sid);
     const act=b.dataset.sact;
@@ -876,14 +837,14 @@ sheetBody.addEventListener("click", e=>{
     refreshTile(it);
   }
   renderTabs();
-  updateDock();
+  updateUI();
   if(totalCount()===0){ closeSheet(); return; }
   renderSheet();
 });
 document.getElementById("clearAll").addEventListener("click",()=>{
   Object.keys(selected).forEach(k=>delete selected[k]);
   customItems.length=0;
-  renderTabs(); renderPanel(); updateDock(); closeSheet();
+  renderTabs(); renderPanel(); updateUI(); closeSheet();
 });
 
 /* ====== Init ====== */
