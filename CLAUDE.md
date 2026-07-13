@@ -83,10 +83,10 @@ index.html
     └── UI        → dock, sheet, toast, search
 ```
 
-### গুরুত্বপূর্ণ কনফিগ (JS-এর শুরুতে)
-```javascript
-const WHATSAPP_NUMBER = "8801628155191"; // +880 1628-155191
-```
+### হোয়াটসঅ্যাপ শেয়ার (গুরুত্বপূর্ণ)
+কোনো নির্দিষ্ট নম্বরে পাঠায় না। `sendWhatsApp()` ফাংশনে নম্বরহীন
+`https://wa.me/?text=...` ব্যবহার করা হয়, যাতে যিনি পাঠাচ্ছেন তিনি নিজের
+হোয়াটসঅ্যাপ থেকে যাকে ইচ্ছা তাকে পাঠাতে পারেন।
 
 ### CATALOG ডেটা স্ট্রাকচার
 ```javascript
@@ -136,11 +136,14 @@ Claude-এর নিজস্ব ডিজাইন সিস্টেম অন
 
 ## ডিপ্লয় তথ্য
 
-- **GitHub রেপো:** `bazar` (Omayer Hamdi-এর অ্যাকাউন্ট)
-- **Cloudflare Pages:** GitHub-এর সাথে connected — push হলেই অটো-ডিপ্লয়
+- **GitHub রেপো:** `omayerhamdi/the-list`
+- **Cloudflare Workers:** GitHub-এর সাথে connected — `main`-এ push হলেই অটো-ডিপ্লয়
 - **Build command:** নেই (static HTML)
 - **Output directory:** রুট (`/`)
-- **লক্ষ্য URL:** `bazar.omayerhamdi.com`
+- **লাইভ URL:** `https://the-list.omayerhamdi.workers.dev/`
+- **Open Graph:** `og:image`/`og:url`-এর ডোমেইন অবশ্যই লাইভ URL-এর সাথে মিলতে হবে,
+  নাহলে শেয়ার-প্রিভিউতে ছবি আসবে না। ছবি বদলালে `og:image`-এ `?v=` বাড়াতে হবে।
+  ইমেজ সোর্স: `og.html` (হেডলেস Chromium দিয়ে ১২০০×৬৩০-এ রেন্ডার করে `og-image.png`)।
 
 ---
 
@@ -156,8 +159,8 @@ Claude-এর নিজস্ব ডিজাইন সিস্টেম অন
 { cat:"নতুন ক্যাটাগরি", eb:"English Label", items:[ ... ] }
 ```
 
-### WhatsApp নম্বর বদলানো
-ফাইলের শুরুতে `WHATSAPP_NUMBER` ভেরিয়েবল।
+### হোয়াটসঅ্যাপ শেয়ার আচরণ
+`sendWhatsApp()` ফাংশন — নম্বরহীন `wa.me/?text=` ব্যবহার করে (প্রাপক ইউজার নিজে বেছে নেন)।
 
 ### রঙ বদলানো
 `:root` CSS variables-এ।

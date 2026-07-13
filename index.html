@@ -12,9 +12,9 @@
 <meta property="og:site_name" content="দ্যা লিস্ট">
 <meta property="og:title" content="দ্যা লিস্ট — বাজারের তালিকা সহজে বানান ও পাঠান">
 <meta property="og:description" content="যা যা লাগবে বেছে নিন, গোছানো তালিকাটা কপি করে বা হোয়াটসঅ্যাপে পাঠিয়ে দিন।">
-<meta property="og:url" content="https://bazar.omayerhamdi.com/">
-<meta property="og:image" content="https://bazar.omayerhamdi.com/og-image.png?v=2">
-<meta property="og:image:secure_url" content="https://bazar.omayerhamdi.com/og-image.png?v=2">
+<meta property="og:url" content="https://the-list.omayerhamdi.workers.dev/">
+<meta property="og:image" content="https://the-list.omayerhamdi.workers.dev/og-image.png?v=3">
+<meta property="og:image:secure_url" content="https://the-list.omayerhamdi.workers.dev/og-image.png?v=3">
 <meta property="og:image:type" content="image/png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -25,7 +25,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="দ্যা লিস্ট — বাজারের তালিকা সহজে বানান ও পাঠান">
 <meta name="twitter:description" content="যা যা লাগবে বেছে নিন, গোছানো তালিকাটা কপি করে বা হোয়াটসঅ্যাপে পাঠিয়ে দিন।">
-<meta name="twitter:image" content="https://bazar.omayerhamdi.com/og-image.png?v=2">
+<meta name="twitter:image" content="https://the-list.omayerhamdi.workers.dev/og-image.png?v=3">
 <style>
   /* ---------- Local font: SolaimanLipi ---------- */
   @font-face{
@@ -396,8 +396,9 @@
 <div class="toast" id="toast"></div>
 
 <script>
-/* ====== Config ====== */
-const WHATSAPP_NUMBER = "8801628155191"; // +880 1628-155191
+/* ====== Config ======
+   হোয়াটসঅ্যাপ শেয়ার কোনো নির্দিষ্ট নম্বরে যায় না — যিনি পাঠাচ্ছেন
+   তিনি নিজের হোয়াটসঅ্যাপ থেকে যাকে ইচ্ছা তাকে পাঠাতে পারেন। */
 
 /* ====== Catalog (bazar.json থেকে নেওয়া) ======
    ক্যাটাগরি: short = ট্যাবে দেখানো ছোট নাম, ic = ইমোজি আইকন
@@ -537,7 +538,7 @@ function totalCount(){ return Object.keys(selected).length + customItems.length;
 const tabsEl = document.getElementById("tabs");
 function tabModel(){
   return [
-    { key:"freq", label:"নিয়মিত", ic:"⭐", count:freqCount() },
+    { key:"freq", label:"নিয়মিত", ic:"⭐", count:freqCount()+customInCat("other") },
     ...CATEGORIES.map(c=>({ key:c.id, label:c.short, ic:c.ic, count:catCount(c.id)+customInCat(c.id) })),
   ];
 }
@@ -605,6 +606,7 @@ function renderPanel(){
     list = items.filter(i=>i.f);
     title = "নিয়মিত বাজার"; eb = "নিয়মিত যা লাগে";
     sub = "সবচেয়ে সাধারণ জিনিসগুলো এক জায়গায়।";
+    addbox = addboxHTML("other");   // এখানে যোগ করা জিনিস "অন্যান্য" তালিকায় যাবে
   } else {
     const c = CATEGORIES.find(x=>x.id===activeTab);
     list = items.filter(i=>i.cat===activeTab);
@@ -742,6 +744,12 @@ function buildMessage(){
     customs.forEach(x=> lines.push(`• ${x.name}`));
     lines.push("");
   });
+  const others = customItems.filter(x=> x.cat==="other");
+  if(others.length){
+    lines.push("*অন্যান্য*");
+    others.forEach(x=> lines.push(`• ${x.name}`));
+    lines.push("");
+  }
   lines.push(`মোট ${bn(totalCount())}টি জিনিস`);
   return lines.join("\n").trim();
 }
@@ -749,7 +757,8 @@ function buildMessage(){
 /* ====== Actions ====== */
 function sendWhatsApp(){
   if(totalCount()===0) return;
-  const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(buildMessage())}`;
+  // নম্বর ছাড়া wa.me — হোয়াটসঅ্যাপ খুলে ইউজারকে চ্যাট/কন্টাক্ট বেছে নিতে দেয়
+  const url = `https://wa.me/?text=${encodeURIComponent(buildMessage())}`;
   window.open(url,"_blank");
 }
 async function copyList(){
@@ -820,6 +829,14 @@ function renderSheet(){
         <button class="rm" data-cdel="${x.id}" aria-label="বাদ দিন">×</button></div>`;
     });
   });
+  const others = customItems.filter(x=> x.cat==="other");
+  if(others.length){
+    html += `<div class="rgroup-h">অন্যান্য</div>`;
+    others.forEach(x=>{
+      html += `<div class="rrow"><span class="rname">${escapeHtml(x.name)}</span>
+        <button class="rm" data-cdel="${x.id}" aria-label="বাদ দিন">×</button></div>`;
+    });
+  }
   sheetBody.innerHTML = html;
 }
 sheetBody.addEventListener("click", e=>{
